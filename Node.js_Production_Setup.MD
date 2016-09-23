@@ -83,3 +83,33 @@ startServer('localhost', 3002);
          }
   ```
 5. Start the nginx and test your application using nginx ip. It should balance the node server load and route the upcoming request to the node having less load using **Round Robin** approach
+
+
+## How to enable SSL in nginx
+1. Create the self signed certificate using the same OpenSSL which has been installed earlier
+  
+   ```
+   ./openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /path/to/key/server.key -out /path/to/certificate/server.crt
+   ```
+2. Enable SSL
+   ```
+     server {
+            listen       443 ssl;
+            server_name  localhost;
+    
+            ssl_certificate      /path/to/certificate/server.key;
+            ssl_certificate_key  /path/to/certificate/server.crt;
+    
+        #    ssl_session_cache    shared:SSL:1m;
+        #    ssl_session_timeout  5m;
+    
+        #    ssl_ciphers  HIGH:!aNULL:!MD5;
+        #    ssl_prefer_server_ciphers  on;
+    
+        # YOU CAN ADD YOUR RULE-SET
+            location / {
+                root   html;
+                index  index.html index.htm;
+            }
+       }
+    ```
