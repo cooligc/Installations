@@ -38,13 +38,17 @@ startServer('localhost', 3002);
     
     ```
 2. Install openssl-1.0.2f 
+  
    ```
    ./config --prefix=/usr/local/openssl && make && make install
    ```
+   
 3. Install nginx-1.10.1
+  
   ```
    ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.39 --with-zlib=../zlib-1.2.8 --with-http_ssl_module --with-stream --with-openssl=/usr/local/openssl/ && make && make install
   ```
+  
 4. Change the nginx configuration (/usr/local/nginx/conf/nginx.conf)
 
   ```
