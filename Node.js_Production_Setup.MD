@@ -78,4 +78,4 @@ startServer('localhost', 3002);
                   proxy_set_header Connection "upgrade";
          }
   ```
-  5. Start the nginx and test your application using nginx ip. It should balance the node server load and route the upcoming request to the node having less load using **Round Robin** approach
+5. Start the nginx and test your application using nginx ip. It should balance the node server load and route the upcoming request to the node having less load using **Round Robin** approach
