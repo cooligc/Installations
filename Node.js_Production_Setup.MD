@@ -1,4 +1,5 @@
-# Load balancing set up for node.js application with nginx in RHEL6x86
+Load balancing set up for node.js application with nginx in RHEL6x86
+====================================================================
 
 ######Here are the list of software that we need to have to have for load balancing
 - nginx-1.10.1
@@ -31,43 +32,50 @@ startServer('localhost', 3002);
 1. Download the source code of nginx-1.10.1 , pcre-8.39 , zlib-1.2.8 and openssl-1.0.2f
     ```
     wget http://nginx.org/download/nginx-1.10.1.tar.gz
-    wget 
+    wget http://ftp.exim.llorien.org/pcre/pcre-8.39.tar.gz
+    wget http://zlib.net/zlib-1.2.8.tar.gz
+    wget https://codeload.github.com/openssl/openssl/tar.gz/OpenSSL_1_0_2f
+    
     ```
-    
- ./configure --prefix=/usr/local/nginx --with-pcre=/usr/local/pcre/bin/pcre-config --with-zlib=../zlib-1.2.8 --with-http_ssl_module --with-stream --with-openssl=/usr/local/openssl/ && make && make install
-nginx configuration : 
-```
-    # Define your "upstream" servers - the
-    # servers request will be sent to
-    upstream node_cluster {
+2. Install openssl-1.0.2f 
+   ```
+   ./config --prefix=/usr/local/openssl && make && make install
+   ```
+3. Install nginx-1.10.1
+  ```
+   ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.39 --with-zlib=../zlib-1.2.8 --with-http_ssl_module --with-stream --with-openssl=/usr/local/openssl/ && make && make install
+  ```
+4. Change the nginx configuration (/usr/local/nginx/conf/nginx.conf)
 
-            server 127.0.0.1:3000;      # Node.js instance 1
-            server 127.0.0.1:3001;      # Node.js instance 2
-            server 127.0.0.1:3002;      # Node.js instance 3
-    }
-    
-     server {
-        listen       80;
-        server_name  localhost;
-
-        # pass the request to the node.js server
-        # with some correct headers for proxy-awareness
-        location / {
-                 proxy_set_header X-Real-IP $remote_addr;
-                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                 proxy_set_header Host $http_host;
-                 proxy_set_header X-NginX-Proxy true;
-
-                proxy_pass http://node_cluster/;
-                proxy_redirect off;
-
-                # Handle Web Socket connections
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "upgrade";
-       }
-
-
-
-```
-
+  ```
+      # Define your "upstream" servers - the
+      # servers request will be sent to
+      upstream node_cluster {
+  
+              server 127.0.0.1:3000;      # Node.js instance 1
+              server 127.0.0.1:3001;      # Node.js instance 2
+              server 127.0.0.1:3002;      # Node.js instance 3
+      }
+      
+       server {
+          listen       80;
+          server_name  localhost;
+  
+          # pass the request to the node.js server
+          # with some correct headers for proxy-awareness
+          location / {
+                   proxy_set_header X-Real-IP $remote_addr;
+                   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                   proxy_set_header Host $http_host;
+                   proxy_set_header X-NginX-Proxy true;
+  
+                  proxy_pass http://node_cluster/;
+                  proxy_redirect off;
+  
+                  # Handle Web Socket connections
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection "upgrade";
+         }
+  ```
+  5. Start the nginx and test your application using nginx ip. It should balance the node server load and route the upcoming request to the node having less load using **Round Robin** approach
