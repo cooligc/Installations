@@ -109,6 +109,13 @@ For tomcat, AJP connector activate by default. For Jboss , we need to do it manu
 - Uncomment below entries
     1. LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
     2. Include conf/extra/httpd-ssl.conf
+- Add the below line in httpd.conf
+    
+    ```
+    # Load mod_ssl.so
+    LoadModule ssl_module  modules/mod_ssl.so
+    ```
+
 
 - Generate the Self Signed certificate and load it to conf/extra/httpd-ssl.conf
     
