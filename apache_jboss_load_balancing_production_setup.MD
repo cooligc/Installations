@@ -14,7 +14,7 @@ For tomcat, AJP connector activate by default. For Jboss , we need to do it manu
 
 ##Prerequisites Softwares
 - jboss-as-7.1.1 (``` wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.0.Final/jboss-as-7.1.0.Final.tar.gz ```)
-- httpd-2.4.23 (``` wget http://mirror.fibergrid.in/apache//apr/apr-1.5.2.tar.gz ```)
+- httpd-2.4.23 (``` wget http://mirror.fibergrid.in/apache//httpd/httpd-2.4.23.tar.gz ```)
 - apr-util-1.5.4 (``` wget http://mirror.fibergrid.in/apache//apr/apr-util-1.5.4.tar.gz ```)
 - apr-1.5.2 (``` wget http://mirror.fibergrid.in/apache//apr/apr-1.5.2.tar.gz ```)
 - pcre-8.39 (``` wget http://ftp.exim.llorien.org/pcre/pcre-8.39.tar.gz ```)
