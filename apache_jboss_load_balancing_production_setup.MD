@@ -6,7 +6,7 @@ Consider, we have 2 jboss instance running with following spectification
 - JBOSS_PORT=8081, AJP_PORT=8010
 
 ####Note
-For tomcat, AJP connector activate by default. For Jboss , we need to do it manually by adding connector tag into standalone.xml under subsystem tag
+For tomcat, AJP connector activate by default. For Jboss , we need to do it manually by adding connector tag into standalone.xml under subsystem tag. And make sure that ajp port is enable in JBOSS
 
 ```
 <connector name="ajp13" protocol="AJP/1.3" socket-binding="ajp"/>
