@@ -2,11 +2,11 @@ Load balancing set up for node.js application with nginx in RHEL6x86
 ====================================================================
 
 ######Here are the list of software that we need to have to have for load balancing
-- nginx-1.10.1
-- pcre-8.39
-- zlib-1.2.8
-- openssl-1.0.2f
-- node
+- nginx-1.10.1 (``` wget http://nginx.org/download/nginx-1.10.1.tar.gz  ```)
+- pcre-8.39 (``` wget http://ftp.exim.llorien.org/pcre/pcre-8.39.tar.gz  ```)
+- zlib-1.2.8 (``` wget http://zlib.net/zlib-1.2.8.tar.gz  ```)
+- openssl-1.0.2f (``` wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2f.tar.gz  ```)
+- node (``` wget https://nodejs.org/dist/v4.6.0/node-v4.6.0-linux-x86.tar.xz  ```)
 
 ###### Node script which will create multiple server 
 
